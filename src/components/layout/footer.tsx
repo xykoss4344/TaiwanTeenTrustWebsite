@@ -1,80 +1,101 @@
+"use client";
+
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function Footer() {
+    const { t } = useLanguage();
+
     return (
-        <footer className="border-t border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-black">
-            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <footer className="border-t border-border bg-muted">
+            <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
                     <div className="col-span-2 md:col-span-1">
-                        <div className="text-2xl font-bold tracking-tight text-cyan-600 mb-4">TTT</div>
-                        <p className="text-sm text-zinc-500 leading-6">
-                            Empowering students to create real-world impact through innovation and community service.
+                        <div className="text-2xl font-bold tracking-tight text-primary mb-4">TTT</div>
+                        <p className="text-sm text-muted-foreground leading-6 pr-4">
+                            {t("footer_tagline")}
                         </p>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Organization</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t("footer_organization")}</h3>
                         <ul role="list" className="mt-4 space-y-4">
                             <li>
-                                <Link href="/about" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    About Us
+                                <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_about_us")}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/team" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Our Team
+                                <Link href="/team" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_our_team")}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/projects" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Projects
+                                <Link href="/focus" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("nav_focus")}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/projects" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_projects")}
                                 </Link>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Community</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t("footer_community")}</h3>
                         <ul role="list" className="mt-4 space-y-4">
                             <li>
-                                <Link href="/blog" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Blog
+                                <Link href="/join" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("nav_join_us")}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Contact
+                                <Link href="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_blog")}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/donate" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Donate
+                                <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_contact")}
                                 </Link>
+                            </li>
+                            <li>
+                                {/* TODO: Replace "#" with your external donation platform URL */}
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                                >
+                                    {t("footer_donate")}
+                                </a>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Social</h3>
+                        <h3 className="text-sm font-semibold text-foreground">{t("footer_social")}</h3>
                         <ul role="list" className="mt-4 space-y-4">
                             <li>
-                                <a href="#" className="text-sm text-zinc-600 hover:text-cyan-600">
+                                <a href="https://instagram.com/taiwanteentrust" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                                     Instagram
                                 </a>
                             </li>
                             <li>
-                                <a href="#" className="text-sm text-zinc-600 hover:text-cyan-600">
+                                <a href="https://linkedin.com/company/taiwanteentrust" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                                     LinkedIn
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:hello@taiwanteentrust.org" className="text-sm text-zinc-600 hover:text-cyan-600">
-                                    Email Us
+                                <a href="mailto:hello@taiwanteentrust.org" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    {t("footer_email_us")}
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div className="mt-8 border-t border-zinc-200 pt-8 dark:border-zinc-800">
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                        &copy; {new Date().getFullYear()} Taiwan Teen Trust. All rights reserved.
+                <div className="mt-12 border-t border-border pt-8 flex items-center justify-between">
+                    <p className="text-sm text-muted-foreground">
+                        &copy; {new Date().getFullYear()} {t("footer_copyright")}
                     </p>
                 </div>
             </div>

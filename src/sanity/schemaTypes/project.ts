@@ -11,6 +11,15 @@ export const project = defineType({
             type: 'string',
         }),
         defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96,
+            },
+        }),
+        defineField({
             name: 'category',
             title: 'Category',
             type: 'string',
@@ -39,6 +48,15 @@ export const project = defineType({
             type: 'image',
             options: {
                 hotspot: true,
+            },
+        }),
+        defineField({
+            name: 'gallery',
+            title: 'Project Album',
+            type: 'array',
+            of: [{ type: 'image' }],
+            options: {
+                layout: 'grid',
             },
         }),
     ],

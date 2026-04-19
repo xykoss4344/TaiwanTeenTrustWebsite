@@ -1,73 +1,121 @@
-import Image from 'next/image';
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+import { motion, useInView, type Variants } from "framer-motion";
+import { useRef } from "react";
+
+const fadeUp: Variants = {
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const stagger: Variants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const pillarsStagger: Variants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
+};
 
 export default function AboutPage() {
+    const { t } = useLanguage();
+
+    const heroRef    = useRef(null);
+    const heroIn     = useInView(heroRef,    { once: true, margin: "-60px" });
+    const pillarsRef = useRef(null);
+    const pillarsIn  = useInView(pillarsRef, { once: true, margin: "-60px" });
+    const quoteRef   = useRef(null);
+    const quoteIn    = useInView(quoteRef,   { once: true, margin: "-60px" });
+
     return (
-        <div className="bg-white">
-            <div className="relative isolate overflow-hidden bg-zinc-50 py-24 sm:py-32">
-                {/* Background decoration */}
+        <div className="bg-background min-h-screen">
+            <div className="relative isolate overflow-hidden py-24 sm:py-32">
+                {/* Subtle background pattern */}
                 <div
-                    className="absolute -top-80 left-[max(6rem,33%)] -z-10 transform-gpu blur-3xl sm:left-1/2 md:top-20 lg:ml-20 xl:top-3 xl:ml-56"
+                    className="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-10"
                     aria-hidden="true"
-                >
-                    <div
-                        className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#9089fc] to-[#ff80b5] opacity-30"
-                        style={{
-                            clipPath:
-                                'polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)',
-                        }}
-                    />
-                </div>
+                />
 
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto max-w-2xl lg:mx-0">
-                        <h2 className="text-4xl font-bold tracking-tight text-zinc-900 sm:text-6xl">Our Mission</h2>
-                        <p className="mt-6 text-lg leading-8 text-zinc-600">
-                            Taiwan Teen Trust acts as a bridge between student passion and real-world impact. We believe that age is not a barrier to making a difference.
-                        </p>
-                    </div>
 
-                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">
-                        <div className="relative lg:order-last lg:col-span-5">
-                            <figure className="border-l border-cyan-500 pl-8">
-                                <blockquote className="text-xl font-semibold leading-8 tracking-tight text-zinc-900">
-                                    <p>
-                                        "We started this organization because we saw a gap. Students wanted to help, but didn't know how. We provide the 'how'."
-                                    </p>
+                    {/* Page title */}
+                    <motion.div
+                        ref={heroRef}
+                        className="mx-auto max-w-2xl lg:mx-0"
+                        initial="hidden"
+                        animate={heroIn ? "visible" : "hidden"}
+                        variants={stagger}
+                    >
+                        <motion.h2 variants={fadeUp} className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl">
+                            {t("about_title")}
+                        </motion.h2>
+                        <motion.p variants={fadeUp} className="mt-6 text-xl leading-8 text-muted-foreground">
+                            {t("about_description")}
+                        </motion.p>
+                    </motion.div>
+
+                    <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-24 lg:max-w-none lg:grid-cols-12">
+
+                        {/* Pull quote */}
+                        <motion.div
+                            ref={quoteRef}
+                            className="relative lg:order-last lg:col-span-5"
+                            initial={{ opacity: 0, x: 32 }}
+                            animate={quoteIn ? { opacity: 1, x: 0 } : { opacity: 0, x: 32 }}
+                            transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                            <figure className="border-l-4 border-primary pl-8 py-2">
+                                <blockquote className="text-xl font-semibold leading-8 tracking-tight text-foreground">
+                                    <p>{t("about_quote")}</p>
                                 </blockquote>
-                                <figcaption className="mt-8 flex gap-x-4">
-                                    <Image
-                                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt=""
-                                        className="mt-1 h-10 w-10 flex-none rounded-full bg-zinc-50"
-                                        width={40}
-                                        height={40}
-                                    />
+                                <figcaption className="mt-8 flex items-center gap-x-4">
+                                    <div className="h-12 w-12 flex-none rounded-full bg-muted object-cover ring-1 ring-border" />
                                     <div className="text-sm leading-6">
-                                        <div className="font-semibold text-zinc-900">Sarah Chen</div>
-                                        <div className="text-zinc-600">Founder, Class of &apos;24</div>
+                                        <div className="font-bold text-foreground">{t("about_quote_author")}</div>
+                                        <div className="text-muted-foreground">{t("about_quote_role")}</div>
                                     </div>
                                 </figcaption>
                             </figure>
-                        </div>
-                        <div className="max-w-xl text-base leading-7 text-zinc-700 lg:col-span-7">
-                            <p>
-                                Founded in 2023, Taiwan Teen Trust began as a small high school club in Taipei. It has since grown into a city-wide network of students committed to social justice, environmental sustainability, and elderly care.
-                            </p>
-                            <ul role="list" className="mt-8 max-w-xl space-y-8 text-zinc-600">
-                                <li className="flex gap-x-3">
-                                    <span className="font-semibold text-zinc-900">Student-Led.</span>
-                                    Every decision, from project selection to budget usage, is made by the student board.
-                                </li>
-                                <li className="flex gap-x-3">
-                                    <span className="font-semibold text-zinc-900">Action-Oriented.</span>
-                                    We don't just talk about change; we go out on weekends to clean beaches, visit nursing homes, and plant trees.
-                                </li>
-                                <li className="flex gap-x-3">
-                                    <span className="font-semibold text-zinc-900">Inclusive.</span>
-                                    We welcome teens from all backgrounds and schools to join our yearly cohorts.
-                                </li>
-                            </ul>
-                        </div>
+                        </motion.div>
+
+                        {/* Body + pillars */}
+                        <motion.div
+                            ref={pillarsRef}
+                            className="max-w-xl text-base leading-7 text-muted-foreground lg:col-span-7"
+                            initial="hidden"
+                            animate={pillarsIn ? "visible" : "hidden"}
+                            variants={stagger}
+                        >
+                            <motion.p variants={fadeUp} className="mb-6">
+                                {t("about_body")}
+                            </motion.p>
+
+                            <motion.ul
+                                role="list"
+                                className="mt-8 max-w-xl space-y-6 text-muted-foreground"
+                                variants={pillarsStagger}
+                            >
+                                {([
+                                    { title: "about_pillar1_title", desc: "about_pillar1_desc" },
+                                    { title: "about_pillar2_title", desc: "about_pillar2_desc" },
+                                    { title: "about_pillar3_title", desc: "about_pillar3_desc" },
+                                ] as const).map(({ title, desc }) => (
+                                    <motion.li
+                                        key={title}
+                                        variants={fadeUp}
+                                        className="flex gap-x-3 rounded-lg border border-border bg-muted/30 p-4 transition-all duration-300 hover:border-primary/30 hover:bg-muted/60 hover:shadow-sm"
+                                    >
+                                        <div>
+                                            <span className="mb-1 block font-bold text-foreground">{t(title)}</span>
+                                            {t(desc)}
+                                        </div>
+                                    </motion.li>
+                                ))}
+                            </motion.ul>
+                        </motion.div>
+
                     </div>
                 </div>
             </div>

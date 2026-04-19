@@ -3,6 +3,9 @@ import React from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
+    children?: React.ReactNode;
+    type?: "button" | "submit" | "reset";
+    className?: string;
 }
 
 export function Button({
@@ -15,10 +18,10 @@ export function Button({
     const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
 
     const variants = {
-        primary: 'bg-foreground text-background hover:opacity-90',
-        secondary: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700',
-        outline: 'border border-zinc-200 hover:bg-zinc-100 dark:border-zinc-800 dark:hover:bg-zinc-800',
-        ghost: 'hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50',
+        primary: 'bg-primary text-primary-foreground hover:opacity-90',
+        secondary: 'bg-secondary text-secondary-foreground hover:opacity-80',
+        outline: 'border border-border hover:bg-muted',
+        ghost: 'hover:bg-muted text-muted-foreground hover:text-foreground',
     };
 
     const sizes = {
