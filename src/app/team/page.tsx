@@ -6,7 +6,7 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
 import { useEffect, useState } from "react";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { SanityImageSource } from "@sanity/image-url";
 import { useLanguage } from "@/context/LanguageContext";
 import { Instagram, Linkedin } from "lucide-react";
 import { TranslationKeys } from "@/lib/translations";
